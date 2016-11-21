@@ -1,0 +1,90 @@
+﻿<!-- Adjunto -->
+<div id="adjuntoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Adjuntos</h4>
+            </div>
+            <div class="modal-body">
+                <div id="adjuntoContenido" class="row">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus">
+                                </i>
+                                <span>
+                                    Agregar Adjunto...
+                                </span>
+                                <input id="adjunto" type="file" name="files[]" multiple>
+                            </span>
+                            <br /><br />
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                                    <span class="sr-only">
+                                        0% complete
+                                    </span>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="filesSuccess" class="col-md-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-black" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Adjunto Editar -->
+<div id="adjuntoEditModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Adjuntos</h4>
+            </div>
+            <div class="modal-body">
+                <div id="adjuntoEditContenido" class="row">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus">
+                                </i>
+                                <span>
+                                    Agregar Adjunto...
+                                </span>
+                                <input id="adjuntoEdit" type="file" name="filesEdit[]" multiple>
+                            </span>
+                            <br /><br />
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                                    <span class="sr-only">
+                                        0% complete
+                                    </span>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="filesEditSuccess" class="col-md-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-black" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

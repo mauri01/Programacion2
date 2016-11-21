@@ -1,0 +1,135 @@
+﻿@model SGITO_OBRAS.Service.Model.VentaModel
+@{
+    ViewBag.Title = "Home";
+}
+<link href="https://fonts.googleapis.com/css?family=Dosis|Roboto" rel="stylesheet">
+<style>
+    body {
+        background: #e2e1e0;
+        text-align: center;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        height: 350px;
+        margin: 1rem;
+        position: relative;
+        width: 300px;
+    }
+
+    .card-text {
+        padding: 5px;
+    }
+
+    .card-img-top {
+        padding-top: 10px;
+        width: 260px;
+        height: 160px;
+        border-radius: 5px;
+    }
+
+    .card-1 {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+   .card-1:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+
+   .texto-titulo{
+       font-family: 'Dosis', sans-serif;
+       text-align:left;
+       font-size: 40px;
+   }
+</style>
+@{
+    string error = (TempData["Error"] ?? string.Empty) as string;
+    if (!string.IsNullOrEmpty(error))
+    {
+        <div class="alert alert-danger fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+            <span style="font-weight: bold;font-size: medium;">Error:</span>
+            @error
+        </div>
+    }
+
+    string exito = (TempData["Exito"] ?? string.Empty) as string;
+    if (!string.IsNullOrEmpty(exito))
+    {
+        <div class="alert alert-success fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <span style="font-weight: bold;font-size: medium;">Excelente:</span>
+            @exito
+        </div>
+    }
+
+    string perfil = (TempData["perfil"] ?? string.Empty) as string;
+
+    if (perfil == "Vendedor")
+    {
+        <div class="panel-heading">
+            <h2 class="panel-title texto-titulo">Ventas Creadas por Usuario</h2>
+        </div>
+    }
+    else
+    {
+        <div class="panel-heading">
+            <h2 class="panel-title texto-titulo">Ventas Disponibles</h2>
+        </div>
+    }
+
+    var datosUsuario = (SGITO_OBRAS.Entity.Usuario)Session["DatosUsuario"];
+    if (datosUsuario != null)
+    {
+        if (Request.IsAuthenticated)
+        {
+
+            List<SGITO_OBRAS.Service.Model.ModelVentaHome> ListaVentas = (TempData["ventaList"] ?? null) as List<SGITO_OBRAS.Service.Model.ModelVentaHome>;
+
+            if (ListaVentas != null)
+            {
+                foreach (var venta in ListaVentas)
+                {
+                    <div class="card card-1">
+                        <img class="card-img-top" src="@venta.rutaAdjunto" alt="Sin Imagen">
+                        <div class="co-md-4">
+                            <h4 class="card-title">@venta.venta.nombreVenta</h4>
+                            <p class="card-text">@venta.venta.descripcion</p>
+                            <h4 class="card-title" style="text-align:center; strong">$@venta.venta.precio</h4>
+                            @Html.ActionLink("VER", "DetailVenta", "Gestion", new { ventaId = venta.venta.ventaId, search = ViewData["search"] }, new { @class = "btn btn-black" })
+                            @{
+                                if (perfil != "Visitante")
+                                {
+                                   @Html.ActionLink("X", "DeleteVenta", "Gestion", new { ventaId = venta.venta.ventaId, search = ViewData["search"] }, new { @class = "btn btn-danger" })
+                                    <p></p>
+                                    if (venta.venta.mensajes > 0)
+                                    {
+                                        @Html.ActionLink("Msj", "VerMensaje", "Gestion", new { ventaId = venta.venta.ventaId }, new { @class = "btn btn-info" })
+                                    }
+                                }
+
+
+                            }
+                            
+                        </div>
+                    </div>
+                }
+            }
+            <div>
+                <br />
+            </div>
+        }
+
+    }
+
+    else
+    {
+        Response.Redirect("~/Account/LogIn");
+    }
+}
+

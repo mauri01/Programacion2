@@ -1,0 +1,121 @@
+﻿@model SGITO_OBRAS.Service.Model.PerfilModel
+@{
+    ViewBag.Title = "Editar - Perfil";
+}
+
+<div class="content-fluid">
+    <div class="col-md-12" style="margin-bottom: 40px;">
+        <div class="panel panel-telefonica">
+            <div class="panel-heading">
+                <h3 class="panel-title">Editar Perfil</h3>
+            </div>
+            @using (Html.BeginForm("Edit", "Perfil", FormMethod.Post))
+            {
+                var count1 = 0;
+                var count2 = 0;
+                @Html.AntiForgeryToken()
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                string error = (TempData["Error"] ?? string.Empty) as string;
+                                if (!string.IsNullOrEmpty(error))
+                                {
+                                    <div class="alert alert-danger fade in" role="alert">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                                        <span class="sr-only">Error:</span>
+                                        @error
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            <label for="datoBasico">Nombre Perfil</label>
+                            @Html.HiddenFor(m => m.perfil.perfilId)
+                            @Html.TextBoxFor(m => m.perfil.descripcion, new { @id = "perfilDescripcion", @class = "form-control", placeholder = "Ejemplo: Administrador General" })
+                            @Html.ValidationMessageFor(m => m.perfil.descripcion)
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Pantalla</th>
+                                <th style="display: none">Mostrar</th>
+                                <th>Funcionalidades</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var modelo in Model.procesoFuncionalidadList)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="col-md-12">
+                                            @Html.HiddenFor(m => m.procesoFuncionalidadList[count1].proceso.procesoId)
+                                            @Html.HiddenFor(m => m.procesoFuncionalidadList[count1].proceso.descripcion)
+                                            @Html.HiddenFor(m => m.procesoFuncionalidadList[count1].proceso.nombre)
+                                            <label>@modelo.proceso.nombre</label>
+                                        </div>
+                                    </td>
+                                    <td style="display: none">
+                                        <div class="col-md-12">
+                                            <input type="checkbox" data-on-text="Si" data-off-text="No" data-on-color="success" data-off-color="danger" class="inp_switch">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @foreach (var funcionalidad in modelo.funcionalidadPermisoList)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    @Html.HiddenFor(m => m.procesoFuncionalidadList[count1].funcionalidadPermisoList[count2].permiso.permisoId)
+                                                    @Html.HiddenFor(m => m.procesoFuncionalidadList[count1].funcionalidadPermisoList[count2].permiso.funcionalidad)
+                                                    <b>@funcionalidad.permiso.funcionalidad</b>
+                                                </div>
+                                                <div class="col-md-5 pull-right">
+                                                    <input type="hidden" id="input_@(count1)_@count2" name="procesoFuncionalidadList[@count1].funcionalidadPermisoList[@count2].valor" value="@funcionalidad.valor.ToString()" />
+                                                    <input type="checkbox" id="check_@(count1)_@count2" count1="@count1" count2="@count2" class="inp_switch" @(funcionalidad.valor == true ? "checked" : "")>
+                                                </div>
+                                            </div>
+                                            count2++;
+                                        }
+                                    </td>
+                                </tr>
+                                count2 = 0;
+                                count1++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-1">@Html.ActionLink("Volver", "Index", "Perfil", new { @class = "btn btn-black" })</div>
+                        <div class="col-md-1 pull-right">
+                            <button type="submit" class="btn btn-telefonica">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                                }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".inp_switch").bootstrapSwitch({
+            'size': 'mini',
+            'onText': 'Si',
+            'offText': 'No',
+            'onColor': 'success',
+            'offColor': 'danger'
+        });
+        $('.inp_switch').on('switchChange.bootstrapSwitch', function (event, state) {
+            var count1 = $(this).attr('count1');
+            var count2 = $(this).attr('count2');
+            var valor = $(this).bootstrapSwitch('state');
+            $("#input_" + count1 + "_" + count2).val(valor);
+        });
+    });
+</script>

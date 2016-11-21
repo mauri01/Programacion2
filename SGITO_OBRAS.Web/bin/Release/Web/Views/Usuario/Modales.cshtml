@@ -1,0 +1,118 @@
+﻿<!-- Crear Usuario -->
+@{
+    //var datosUsuario = (SGITO_OBRAS.Web.Models.DatosUsuarioLogueado)Session["DatosUsuario"];
+}
+<div id="crearModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="titulo" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="crearContenido" class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <input type="hidden" id="idEditar" name="idEditar" class="form-control" />
+                            <input type="hidden" id="accion" name="accion" class="form-control" />
+                            <div class="col-md-12 form-group">
+                                <label for="ured">Usuario Red</label>
+                                <input type="text" id="ured" name="ured" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="dominio">Dominio</label>
+                                <input type="text" id="dominio" name="dominio" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="nombre">Nombre y Apellido</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" />
+                            </div>
+                        </div>
+                        <!--
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="sector">Sector</label>
+                                <select id="sector" class="form-control chosen-select sector" data-placeholder="Seleccione..." multiple></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="empresa">Empresa</label>
+                                <select id="empresa" name="empresa" tipo="" class="form-control chosen-select empresa" data-placeholder="Seleccione..."></select>
+                            </div>
+                        </div>-->
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="email">E-Mail</label>
+                                <input type="text" id="email" name="email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="tipoDoc">Tipo Documentos</label>
+                                <select id="tipoDoc" name="tipoDoc" class="form-control tipoDocSelect">
+                                    <option value="">Seleccione...</option>
+                                    <option value="D.N.I.">D.N.I.</option>
+                                    <option value="C.I.">C.I.</option>
+                                    <option value="L.C.">L.C.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="doc">Nro. Documento</label>
+                                <input type="text" id="doc" name="doc" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="perfilesContenido" class="row" style="display: none">
+                    <div id="perfilesAppend" class="col-md-12">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" id="btn-volver" class="btn btn-default" style="display: none;"><< Volver</button>
+                <button type="button" id="btn-sgte" class="btn btn-default">Siguiente >></button>-->
+                <button type="button" id="btn-crear" class="btn btn-telefonica" style="display: none;">Guardar</button>
+                <button type="button" class="btn btn-black" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Eliminar Usuario -->
+<div id="eliminarModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div id="eliminarContenido" class="row">
+                    <input type="hidden" id="idEliminar" name="idEliminar" class="form-control" />
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" role="alert">
+                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Cuidado:</span>
+                            El usuario <b id="descripcionEliminar"></b> será eliminado ¿Continuar?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-eliminar" class="btn btn-danger">Aceptar</button>
+                <button type="button" class="btn btn-black" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

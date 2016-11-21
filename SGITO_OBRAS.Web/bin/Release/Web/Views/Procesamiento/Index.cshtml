@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Procesamiento";
+}
+<head>
+    <meta http-equiv="refresh" content="30">
+</head> 
+<div class="content-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-telefonica">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Procesamiento Big Data</h3>
+                </div>
+                <div class="panel-body">
+                    @{
+                        string pagina = (TempData["pagina"] ?? string.Empty) as string;
+                        string search = (TempData["search"] ?? string.Empty) as string;
+                        if (!string.IsNullOrEmpty(pagina))
+                        {
+                            <input type="hidden" id="pagina" value="@pagina" />
+                            <input type="hidden" id="search" value="@search" />
+                        }
+                        else
+                        {
+                            <input type="hidden" id="pagina" value="1" />
+                            <input type="hidden" id="search" value="@search" />
+                        }
+                    }
+                    <div class="alert alert-success" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" onclick="notificationMessageClose()">&times;</button>
+                        <div id="alert-success-message"></div>
+                    </div>
+                    <div class="alert alert-danger" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" onclick="notificationErrorClose()">&times;</button>
+                        <div id="alert-danger-message"></div>
+                    </div>
+                    <div class="eldiv">
+                        <table id="myDataTable" class="table display">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Fuente</th>
+                                    <th>Carpeta</th>
+                                    <th>Fecha de Procesamiento</th>
+                                    <th>Resultado de ejecución</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/Procesamiento/Index.js"></script>
+ 

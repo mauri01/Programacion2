@@ -1,0 +1,215 @@
+﻿@model SGITO_OBRAS.Service.Model.VentaModel
+@{
+    ViewBag.Title = "Crear - Venta";
+}
+<div class="content-fluid">
+    <div class="col-md-12" style="margin-bottom: 40px;">
+        <div class="panel panel-telefonica">
+            
+            @using (Html.BeginForm("Create", "Gestion", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="panel-body">
+                    @{
+                        string error = (TempData["Error"] ?? string.Empty) as string;
+                        if (!string.IsNullOrEmpty(error))
+                        {
+                            <div class="alert alert-danger fade in" role="alert">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                                <span style="font-weight: bold;font-size: medium;">Error:</span>
+                                @error
+                            </div>
+                        }
+
+                        string exito = (TempData["Exito"] ?? string.Empty) as string;
+                        if (!string.IsNullOrEmpty(exito))
+                        {
+                            <div class="alert alert-success fade in" role="alert">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span style="font-weight: bold;font-size: medium;">Excelente:</span>
+                                @exito
+                            </div>
+                        }
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                    <div id="crearContenido" class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="nombreVenta">Nombre Venta</label>
+                                    @Html.TextBoxFor(m => m.venta.nombreVenta, new { @id = "nombreVenta", @class = "form-control",@value = "@(Model != null ? m.venta.nombreVenta : string.Empty)", placeholder = "Recuerda que un Buen titulo Atrae." })
+                                    @Html.ValidationMessageFor(m => m.venta.nombreVenta)
+                                </div>
+                            </div>
+                            @Html.HiddenFor(m => m.strAdjId, new { @id = "strAdjId" })
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Breve Descripción</label>
+                                    @Html.TextBoxFor(m => m.venta.descripcion, new { @id = "descripcion", @class = "form-control", placeholder = "Trata de Describir de la mejor manera tu venta." })
+                                    @Html.ValidationMessageFor(m => m.venta.descripcion)
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="cantDormitorios">Cantidad de Dormitorios</label>
+                                    @Html.TextBoxFor(m => m.venta.cantDormitorios, new { @id = "cantDormitorios", @class = "form-control", @type = "number" })
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="cantBaños">Cantidad de Baños</label>
+                                    @Html.TextBoxFor(m => m.venta.cantBaños, new { @id = "cantBaños", @class = "form-control" , @type = "number"})
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="cantMetrosCuadrados">Cantidad de Metros Cuadrados</label>
+                                    @Html.TextBoxFor(m => m.venta.metrosCuadrados, new { @id = "cantMetrosCuadrados", @class = "form-control", @type = "number" })
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="desplegableTipo">Tipo</label>
+                                    @Html.DropDownList("desplegableTipo", null, "Seleccione...", new { @id = "desplegableTipo", Name = "desplegableTipo", @class = "form-control", placeholder = "Seleccione..." })
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="provincias">Provincia</label>
+                                    @Html.DropDownList("provincias", null, "Seleccione...", new { @id = "provincias", Name = "provincias", @class = "form-control", placeholder = "Seleccione..." })
+                                    @Html.ValidationMessageFor(m => m.venta.provincia)
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="precio">Precio en ARP</label>
+                                    @Html.TextBoxFor(m => m.venta.precio, new { @id = "precio", @class = "form-control", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.venta.precio)
+                                </div>
+                            </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label for="desplegableAdjuntos">Adjuntos</label>
+                                        <div class="panel panel-telefonica">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-10 form-group">
+                                                        <input type="hidden" id="strAdjId" value="" />
+                                                        @Html.DropDownList("desplegableAdjuntos", null, "Seleccione...", new { @id = "adjuntoSelect", Name = "adjuntoIdList", @class = "form-control", placeholder = "Seleccione..." })
+                                                    </div>
+                                                    <div class="col-md-2 pull-right form-group">
+                                                        <button type="button" id="btn-adjunto" class="btn btn-success btn-adjunto"><i class="glyphicon glyphicon-paperclip"></i></button>
+                                                        <button type="button" id="btn-deleteAdjunto" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-1 pull-right">
+                            <button type="submit" class="btn btn-publicar">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+                                }
+                  
+        </div>
+    </div>
+</div>
+@Html.Partial("Modales")
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".chosen-select").chosen({
+            search_contains: true,
+            placeholder_text_multiple: "Seleccione...",
+            no_results_text: "Sin resultados..."
+        });
+
+        $('#adjunto').fileupload({
+            url: '/Gestion/Subir?procesoId=1',
+            autoUpload: true,
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('.progress .progress-bar').css('width', progress + '%');
+            }
+        }).bind('fileuploaddone', function (e, data) {
+            if (data.result.adjuntoId != "sin adjunto") {
+                if ($("#strAdjId").val() == "") {
+                    $("#strAdjId").val(data.result.adjuntoId);
+                } else {
+                    $("#strAdjId").val($("#strAdjId").val() + ";" + data.result.adjuntoId);
+                }
+                $("#filesSuccess").append("<div class='alert alert-sm alert-success fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong><span class='glyphicon glyphicon-ok'></span></strong> " + data.result.nombreArchivo + "</div>");
+                $("#adjuntoSelect").append("<option id='optionAdj_" + data.result.adjuntoId + "' value='" + data.result.adjuntoId + "'>" + data.result.nombreArchivo + "</option>");
+            } else {
+                msgError("Problemas al guardar archivo.");
+            }
+        });
+
+        $("#btn-adjunto").click(function () {
+            $("#filesSuccess").html("");
+            $('.progress .progress-bar').css('width', '0%');
+            $('#adjuntoModal').modal();
+        });
+
+        $("#btn-verAdjunto").click(function () {
+            var id = $("#adjuntoSelect").val();
+            if (id == "") {
+                msgWarning("Debe seleccionar un archivo");
+            } else {
+                var url = "../Adjunto/Download/" + id;
+                window.open(url, '_blank');
+            }
+        });
+
+        $("#btn-deleteAdjunto").click(function () {
+            var id = $("#adjuntoSelect").val();
+            if (id == "") {
+                msgWarning("Debe seleccionar un archivo");
+            } else {
+                data = {
+                    'id': id,
+                    'proceso': 'OBRA'
+                }
+                $.ajax({
+                    url: "../Gestion/DeleteAdjuntos/",
+                    cache: false,
+                    data: data,
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#optionAdj_" + id).remove();
+                            var strId = $("#strAdjId").val();
+                            $("#strAdjId").val("");
+                            var adjId = strId.split(";");
+                            for (index = 0; index < adjId.length; ++index) {
+                                if (adjId[index] != id) {
+                                    if ($("#strAdjId").val() == "") {
+                                        $("#strAdjId").val(adjId[index]);
+                                    } else {
+                                        $("#strAdjId").val($("#strAdjId").val() + ";" + adjId[index]);
+                                    }
+                                }
+                            }
+                            msgSuccessNorefresh("Archivo eliminado con éxito");
+                        } else {
+                            msgError("Problemas al eliminar el archivo");
+                        }
+                    }
+                });
+            }
+        });
+    });  
+    
+</script>

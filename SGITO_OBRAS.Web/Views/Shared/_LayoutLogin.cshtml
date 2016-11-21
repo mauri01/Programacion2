@@ -1,0 +1,36 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MULTISGITO</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/cssLogin")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <meta name="description" content="SGITO Datos" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,IE=11">
+</head>
+<body>
+    <div class="main-header">
+        <div id="image-header">
+            <img src='/Images/header-3.png' />
+            <div id="login-display"></div>
+        </div>
+        <nav class="navbar navbar-default" role="navigation" id="menu-navegacion">
+            <div class="collapse navbar-collapse navbar-ex1-collapse col-md-8"></div>
+        </nav>
+    </div>
+    <div class="body-content">
+        @RenderBody()
+        <div class="main-footer">
+            <p>&copy; @DateTime.Now.Year - La mejor App :D</p>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
